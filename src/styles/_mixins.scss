@@ -1,0 +1,25 @@
+@use "./_variables.scss" as *;
+@mixin scroll {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+  }
+
+  /* Бегунок (сам перетаскиваемый элемент) */
+  &::-webkit-scrollbar-thumb {
+    background: $black-color-200;
+    border-radius: 4px;
+  }
+
+  /* Изменение цвета бегунка при наведении */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $black-color-300;
+  }
+}

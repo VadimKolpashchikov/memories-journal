@@ -1,5 +1,5 @@
-@import '@/assets/fonts.css';
-@import '@/assets/normalize.css';
+@import "@/assets/fonts.css";
+@import "@/assets/normalize.css";
 
 html {
   min-height: 100%;
@@ -11,12 +11,10 @@ html {
 
 body {
   width: 100%;
-  height: 100%;
-  padding: 16px;
   background: $black-color-400;
 
   * {
-    font-family: 'Source Sans 3', 'sans-serif';
+    font-family: "Source Sans 3", "sans-serif";
     font-weight: 400;
     font-size: 16px;
     color: $light-color-0;
