@@ -1,6 +1,10 @@
 import Button from './components/Button/Button';
-import CardButton from './components/CardButton/CardButton';
-import JournalItem from './components/JournalItem/JournalItem';
+import JournalList from './components/journal/JournalList/JournalList';
+import JournalAddButton from './components/journal/JournalAddButton/JournalAddButton';
+import Body from './components//layouts/Body/Body';
+import LeftPanel from './components//layouts/LeftPanel/LeftPanel';
+import Header from './components/Header/Header';
+import './styles/App.scss';
 
 function App() {
   const data = [
@@ -10,15 +14,18 @@ function App() {
   ];
 
   return (
-    <>
-      <Button />
+    <div className="app">
+      <LeftPanel>
+        <Header />
+        <JournalAddButton />
+        <JournalList items={data} />
+      </LeftPanel>
 
-      {data.map((el, idx) => (
-        <CardButton key={idx}>
-          <JournalItem data={el} />
-        </CardButton>
-      ))}
-    </>
+      <Body>
+        <div>Body</div>
+        <Button />
+      </Body>
+    </div>
   );
 }
 
