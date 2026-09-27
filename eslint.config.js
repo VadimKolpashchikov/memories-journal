@@ -30,9 +30,23 @@ export default defineConfig([
     },
     rules: {
       'max-params': ['error', 2],
-      '@stylistic/jsx-max-props-per-line': ['error', { maximum: 2 }],
-      '@stylistic/jsx-closing-bracket-location': ['error', 'tag-aligned'],
+      '@stylistic/exp-jsx-props-style': ['error', {
+        singleLine: { maxItems: 2 },
+        multiLine: { minItems: 3 },
+      }],
+      '@stylistic/jsx-max-props-per-line': 'off',
+      '@stylistic/jsx-first-prop-new-line': 'off',
+      '@stylistic/jsx-closing-bracket-location': ['error', {
+        nonEmpty: 'tag-aligned',
+        selfClosing: 'tag-aligned',
+      }],
       '@stylistic/arrow-parens': ['error', 'always'],
+      'max-len': ['error', {
+        code: 100,
+        ignoreUrls: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+      }],
     },
   },
 ]);
