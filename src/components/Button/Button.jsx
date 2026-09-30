@@ -1,21 +1,9 @@
-import { useState } from 'react';
 import './Button.scss';
 
-function Button() {
-  const [text, setText] = useState('Сохранить');
-
-  const onClick = (e) => {
-    console.log(e);
-    setText('Сохранено');
-  };
-
+function Button({ type = 'button', children }) {
   return (
-    <button
-      type="button"
-      className="button button_accent"
-      onClick={onClick}
-    >
-      {text}
+    <button type={type} className="button button_accent">
+      {children}
     </button>
   );
 }

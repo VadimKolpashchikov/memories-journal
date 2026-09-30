@@ -1,9 +1,9 @@
-import Button from './components/Button/Button';
 import JournalList from './components/journal/JournalList/JournalList';
 import JournalAddButton from './components/journal/JournalAddButton/JournalAddButton';
 import Body from './components//layouts/Body/Body';
 import LeftPanel from './components//layouts/LeftPanel/LeftPanel';
 import Header from './components/Header/Header';
+import JournalForm from './components/journal/JournalForm/JournalForm';
 import './styles/App.scss';
 
 function App() {
@@ -22,8 +22,7 @@ function App() {
       </LeftPanel>
 
       <Body>
-        <div>Body</div>
-        <Button />
+        <JournalForm />
       </Body>
     </div>
   );
