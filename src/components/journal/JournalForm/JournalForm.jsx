@@ -6,14 +6,11 @@ function JournalForm() {
   const [inputData, setInputData] = useState('');
 
   const inputOnChange = (e) => {
-    console.log(e);
-
     setInputData(e.target.value);
   };
 
   const addJournalItem = (e) => {
     e.preventDefault();
-
     const data = Object.fromEntries(new FormData(e.target));
     console.log(data);
   };
@@ -33,7 +30,9 @@ function JournalForm() {
 
       <textarea name="content" id="memory-content"></textarea>
 
-      <Button type="submit">Сохранить</Button>
+      <Button type="submit" onClick={(e) => console.log(e)}>
+        Сохранить
+      </Button>
     </form>
   );
 }
