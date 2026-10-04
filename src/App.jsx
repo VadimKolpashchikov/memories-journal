@@ -8,9 +8,21 @@ import './styles/App.scss';
 
 function App() {
   const data = [
-    { title: 'Title', text: 'Text', date: new Date() },
-    { title: 'Title1', text: 'Text1', date: new Date() },
-    { title: 'Title2', text: 'Text2', date: new Date() },
+    {
+      title: 'Title',
+      text: 'Text',
+      date: new Date(),
+    },
+    {
+      title: 'Title1',
+      text: 'Text1',
+      date: new Date(),
+    },
+    {
+      title: 'Title2',
+      text: 'Text2',
+      date: new Date(),
+    },
   ];
 
   return (
