@@ -1,17 +1,16 @@
 @font-face {
   font-display: swap;
-  font-family: 'Source Sans 3';
+  font-family: "Source Sans 3";
   font-style: normal;
   font-weight: 400;
-  src: url('../assets/fonts/source-sans-3-v19-cyrillic_latin-regular.woff2')
-    format('woff2');
+  src: url("/fonts/source-sans-3-v19-cyrillic_latin-regular.woff2")
+    format("woff2");
 }
 
 @font-face {
   font-display: swap;
-  font-family: 'Source Sans 3';
+  font-family: "Source Sans 3";
   font-style: normal;
   font-weight: 600;
-  src: url('../assets/fonts/source-sans-3-v19-cyrillic_latin-600.woff2')
-    format('woff2');
+  src: url("/fonts/source-sans-3-v19-cyrillic_latin-600.woff2") format("woff2");
 }
