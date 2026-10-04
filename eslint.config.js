@@ -12,7 +12,6 @@ export default defineConfig([
     quotes: 'single',
     semi: true,
     jsx: true,
-
   }),
   {
     files: ['**/*.{js,jsx}'],
@@ -46,6 +45,16 @@ export default defineConfig([
         ignoreUrls: true,
         ignoreStrings: true,
         ignoreTemplateLiterals: true,
+      }],
+      '@stylistic/object-curly-newline': ['error', {
+        ObjectPattern: {
+          minProperties: 2,
+          multiline: true,
+          consistent: true,
+        },
+      }],
+      '@stylistic/object-property-newline': ['error', {
+        allowAllPropertiesOnSameLine: false,
       }],
     },
   },
