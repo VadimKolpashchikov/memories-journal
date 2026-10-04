@@ -1,18 +1,11 @@
-import { useState } from 'react';
 import Button from '../../Button/Button';
 import './JournalForm.scss';
 
-function JournalForm() {
-  const [inputData, setInputData] = useState('');
-
-  const inputOnChange = (e) => {
-    setInputData(e.target.value);
-  };
-
+function JournalForm({ onAddItem }) {
   const addJournalItem = (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
-    console.log(data);
+    onAddItem(data);
   };
 
   return (
@@ -21,16 +14,11 @@ function JournalForm() {
 
       <input name="date" type="date" />
 
-      <input
-        name="tag"
-        type="text"
-        value={inputData}
-        onChange={inputOnChange}
-      />
+      <input name="tag" type="text" />
 
-      <textarea name="content" id="memory-content"></textarea>
+      <textarea name="text" id="memory-content" />
 
-      <Button type="submit" onClick={(e) => console.log(e)}>
+      <Button type="submit">
         Сохранить
       </Button>
     </form>
