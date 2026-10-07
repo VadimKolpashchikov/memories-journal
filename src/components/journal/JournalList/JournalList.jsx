@@ -5,8 +5,8 @@ import JournalItem from '../JournalItem/JournalItem.jsx';
 function JournalList({ items = [] }) {
   return (
     <div className="journal-list">
-      {items.map((el, idx) => (
-        <CardButton key={idx}>
+      {items.map((el) => (
+        <CardButton key={el.id}>
           <JournalItem data={el} />
         </CardButton>
       ))}

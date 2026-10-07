@@ -6,33 +6,43 @@ import Header from './components/Header/Header';
 import JournalForm from './components/journal/JournalForm/JournalForm';
 import './styles/App.scss';
 import { useState } from 'react';
+import { getSortItemsByDate } from './helpers/date';
 
 const INITIAL_DATA = [
   {
+    id: 1,
     title: 'Title',
     text: 'Text',
     date: new Date(),
   },
   {
+    id: 2,
     title: 'Title1',
     text: 'Text1',
     date: new Date(),
   },
   {
+    id: 3,
     title: 'Title2',
     text: 'Text2',
     date: new Date(),
   },
 ];
 
+const sortItems = getSortItemsByDate();
+
 function App() {
-  const [memories, setMemories] = useState(INITIAL_DATA);
+  const [memories, setMemories] = useState(INITIAL_DATA.sort(sortItems));
 
   const addItem = (item) => {
-    setMemories((prev) => [{
-      ...item,
-      date: new Date(item.date),
-    }, ...prev]);
+    setMemories((prev) => [
+      ...prev,
+      {
+        ...item,
+        id: Math.max(prev.map(({ id }) => id)) + 1,
+        date: new Date(item.date),
+      },
+    ].sort(sortItems));
   };
 
   return (
