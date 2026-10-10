@@ -1,5 +1,29 @@
 .journal-form {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 30px;
+  height: 100%;
+
+  input,
+  textarea {
+    border: 1px solid transparent;
+    background: none;
+    outline: none;
+
+    &:focus {
+      border-color: $light-color-10;
+    }
+  }
+
+  input {
+    border-bottom: 1px solid $light-color-10;
+  }
+
+  textarea {
+    width: 100%;
+    height: 100%;
+    justify-self: stretch;
+    resize: none;
+  }
 }

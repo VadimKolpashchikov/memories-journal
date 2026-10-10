@@ -16,7 +16,11 @@ function JournalForm({ onAddItem }) {
 
       <input name="tag" type="text" />
 
-      <textarea name="text" id="memory-content" />
+      <textarea
+        name="text"
+        id="memory-content"
+        placeholder="Моё воспоминание..."
+      />
 
       <Button type="submit">
         Сохранить
