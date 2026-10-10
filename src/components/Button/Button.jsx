@@ -1,6 +1,8 @@
 import './Button.scss';
 
-function Button({ type = 'button', children, onClick }) {
+function Button({
+  type = 'button', children, onClick,
+}) {
   return (
     <button
       type={type}

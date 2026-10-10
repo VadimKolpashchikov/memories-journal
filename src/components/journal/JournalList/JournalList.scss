@@ -4,9 +4,24 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: 100%;
   margin: 0 -20px;
   padding: 0 20px;
   overflow-y: auto;
 
   @include mixins.scroll;
+
+  &__empty-state {
+    margin-block: 30px;
+    text-align: center;
+
+    h4 {
+      font-size: 24px;
+    }
+
+    p {
+      margin-top: 20px;
+      color: $light-color-60;
+    }
+  }
 }

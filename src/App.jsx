@@ -39,7 +39,7 @@ function App() {
       ...prev,
       {
         ...item,
-        id: Math.max(prev.map(({ id }) => id)) + 1,
+        id: Math.max(0, ...prev.map(({ id }) => id)) + 1,
         date: new Date(item.date),
       },
     ].sort(sortItems));
