@@ -12,17 +12,15 @@ html {
 body {
   width: 100%;
   background: $black-color-400;
-
-  * {
-    font-family: "Source Sans 3", "sans-serif";
-    font-weight: 400;
-    font-size: 16px;
-    color: $light-color-0;
-  }
+  font-family: "Source Sans 3", "sans-serif";
+  font-weight: 400;
+  font-size: 16px;
+  color: $light-color-0;
 }
 
 p {
   margin: 0;
+  color: $light-color-0;
 }
 
 h1,
@@ -33,4 +31,5 @@ h5,
 h6 {
   margin: 0;
   font-weight: 600;
+  color: $light-color-0;
 }

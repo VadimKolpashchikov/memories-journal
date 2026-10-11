@@ -1,9 +1,9 @@
-import './Header.scss';
+import LogoSvg from '@/assets/svg/logo.svg?react';
 
 function Header() {
   return (
-    <div className="header">
-      <img src="/svg/logo.svg" alt="Journal logo" />
+    <div>
+      <LogoSvg />
     </div>
   );
 }

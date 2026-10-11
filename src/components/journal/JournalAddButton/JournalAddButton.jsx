@@ -1,10 +1,11 @@
 import CardButton from '@/components/CardButton/CardButton';
+import PluseSvg from '@/assets/svg/pluse.svg?react';
 import './JournalAddButton.scss';
 
 function JournalAddButton() {
   return (
     <CardButton className="journal-add-button">
-      <img src="/svg/pluse.svg" alt="add memory" />
+      <PluseSvg />
       Новое воспоминание
     </CardButton>
   );

@@ -10,6 +10,7 @@
     border: 1px solid transparent;
     background: none;
     outline: none;
+    transition: border 0.1s ease-in;
 
     &:focus {
       border-color: $light-color-10;

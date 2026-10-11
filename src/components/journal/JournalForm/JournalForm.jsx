@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Button from '../../Button/Button';
-import './JournalForm.scss';
+import DeleteSvg from '@/assets/svg/delete.svg?react';
+import styles from './JournalForm.module.scss';
+import cn from 'classnames';
 
 function JournalForm({ onAddItem }) {
   const [formValidState, setFormValidState] = useState({
@@ -30,28 +32,40 @@ function JournalForm({ onAddItem }) {
       e.target.reset();
     }
   };
+  const getValidationClassName = (fieldName) => cn(
+    { [styles.invalid]: !formValidState[fieldName] },
+  );
 
   return (
-    <form className="journal-form" onSubmit={addJournalItem}>
-      <input
-        name="title"
-        type="text"
-        className={!formValidState.title ? 'invalid' : ''}
-      />
+    <form className={styles['journal-form']} onSubmit={addJournalItem}>
+      <div>
+        <input
+          name="title"
+          type="text"
+          className={getValidationClassName('title')}
+        />
+        <button type="button">
+          <DeleteSvg />
+        </button>
+      </div>
 
-      <input
-        name="date"
-        type="date"
-        className={!formValidState.date ? 'invalid' : ''}
-      />
+      <label>
+        <input
+          name="date"
+          type="date"
+          className={getValidationClassName('date')}
+        />
+      </label>
 
-      <input name="tag" type="text" />
+      <label>
+        <input name="tag" type="text" />
+      </label>
 
       <textarea
         name="text"
         id="memory-content"
         placeholder="Моё воспоминание..."
-        className={!formValidState.text ? 'invalid' : ''}
+        className={getValidationClassName('text')}
       />
 
       <Button type="submit">
