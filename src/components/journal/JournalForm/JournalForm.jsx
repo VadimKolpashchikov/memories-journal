@@ -38,28 +38,36 @@ function JournalForm({ onAddItem }) {
 
   return (
     <form className={styles['journal-form']} onSubmit={addJournalItem}>
-      <div>
-        <input
-          name="title"
-          type="text"
-          className={getValidationClassName('title')}
-        />
-        <button type="button">
-          <DeleteSvg />
-        </button>
+      <div className={styles['journal-form__head']}>
+        <div className={styles['journal-form__field']}>
+          <input
+            name="title"
+            type="text"
+            className={getValidationClassName('title')}
+          />
+          <button type="button">
+            <DeleteSvg />
+          </button>
+        </div>
       </div>
 
-      <label>
-        <input
-          name="date"
-          type="date"
-          className={getValidationClassName('date')}
-        />
-      </label>
+      <div className={styles['journal-form__inputs-box']}>
+        <label>
+          <div className={styles['journal-form__field']}>
+            <input
+              name="date"
+              type="date"
+              className={getValidationClassName('date')}
+            />
+          </div>
+        </label>
 
-      <label>
-        <input name="tag" type="text" />
-      </label>
+        <label>
+          <div className={styles['journal-form__field']}>
+            <input name="tag" type="text" />
+          </div>
+        </label>
+      </div>
 
       <textarea
         name="text"
