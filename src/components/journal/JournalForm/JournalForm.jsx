@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Button from '../../Button/Button';
+import JournalFormField from '../JournalFormField/JournalFormField';
 import DeleteSvg from '@/assets/svg/delete.svg?react';
+import CalendarSvg from '@/assets/svg/calendar.svg?react';
+import FileSvg from '@/assets/svg/file.svg?react';
 import styles from './JournalForm.module.scss';
-import cn from 'classnames';
 
 function JournalForm({ onAddItem }) {
   const [formValidState, setFormValidState] = useState({
@@ -17,8 +19,8 @@ function JournalForm({ onAddItem }) {
     state.title = !!formData.title.trim();
     state.text = !!formData.text.trim();
     state.date = !!formData.date;
-
     setFormValidState(state);
+
     return Object.values(state).every((val) => val);
   };
 
@@ -32,53 +34,42 @@ function JournalForm({ onAddItem }) {
       e.target.reset();
     }
   };
-  const getValidationClassName = (fieldName) => cn(
-    { [styles.invalid]: !formValidState[fieldName] },
-  );
 
   return (
     <form className={styles['journal-form']} onSubmit={addJournalItem}>
       <div className={styles['journal-form__head']}>
-        <div className={styles['journal-form__field']}>
+        <JournalFormField invalid={!formValidState['title']} wide={true}>
           <input
             name="title"
             type="text"
-            className={getValidationClassName('title')}
+            placeholder="Заголовок"
           />
-          <button type="button">
-            <DeleteSvg />
-          </button>
-        </div>
+        </JournalFormField>
+
+        <button type="button">
+          <DeleteSvg />
+        </button>
       </div>
 
-      <div className={styles['journal-form__inputs-box']}>
-        <label>
-          <div className={styles['journal-form__field']}>
-            <input
-              name="date"
-              type="date"
-              className={getValidationClassName('date')}
-            />
-          </div>
-        </label>
+      <div className={styles['journal-form__fields-box']}>
+        <JournalFormField
+          invalid={!formValidState['date']}
+          icon={<CalendarSvg />}
+          label="Дата"
+        >
+          <input name="date" type="date" />
+        </JournalFormField>
 
-        <label>
-          <div className={styles['journal-form__field']}>
-            <input name="tag" type="text" />
-          </div>
-        </label>
+        <JournalFormField icon={<FileSvg />} label="Метки">
+          <input name="tag" type="text" />
+        </JournalFormField>
       </div>
 
-      <textarea
-        name="text"
-        id="memory-content"
-        placeholder="Моё воспоминание..."
-        className={getValidationClassName('text')}
-      />
+      <JournalFormField invalid={!formValidState['text']} grow={true}>
+        <textarea name="text" placeholder="Моё воспоминание..." />
+      </JournalFormField>
 
-      <Button type="submit">
-        Сохранить
-      </Button>
+      <Button type="submit">Сохранить</Button>
     </form>
   );
 }

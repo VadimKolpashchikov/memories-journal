@@ -1,0 +1,59 @@
+.journal-form-field {
+  position: relative;
+  width: 100%;
+  cursor: text;
+
+  &_grow {
+    flex-grow: 1;
+
+    .journal-form-field__wrap {
+      height: 100%;
+    }
+  }
+
+  &__wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 34px;
+    width: 100%;
+    padding-bottom: 14px;
+    border: none;
+    border-bottom: 1px solid $light-color-10;
+    transition: border 0.1s ease-in;
+
+    &_wide {
+      height: 40px;
+      padding-bottom: 0;
+      border-color: transparent;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 40px;
+    }
+
+    &:hover,
+    &:has(*:focus),
+    &:focus-within {
+      border-color: $light-color-60;
+    }
+
+    &_invalid {
+      border-color: $error-color-400;
+    }
+  }
+
+  &__icon {
+    display: flex;
+    padding-right: 12px;
+  }
+
+  &__label {
+    width: 100px;
+    padding-right: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $light-color-60;
+    line-height: 18px;
+  }
+}
