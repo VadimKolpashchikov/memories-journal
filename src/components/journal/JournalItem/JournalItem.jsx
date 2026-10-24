@@ -1,8 +1,14 @@
 import './JournalItem.scss';
 import { formatter } from '@/helpers/date';
 
-function JournalItem({ data: { title, text, date } }) {
-  const formattedDate = date instanceof Date ? formatter.format(date) : date;
+function JournalItem({
+  data: {
+    title, text, date,
+  },
+}) {
+  const formattedDate = date instanceof Date
+    ? formatter.format(date)
+    : formatter.format(new Date(date));
 
   return (
     <div className="journal-item">

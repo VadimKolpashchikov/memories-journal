@@ -5,44 +5,30 @@ import LeftPanel from './components//layouts/LeftPanel/LeftPanel';
 import Header from './components/Header/Header';
 import JournalForm from './components/journal/JournalForm/JournalForm';
 import './styles/App.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getSortItemsByDate } from './helpers/date';
-
-const INITIAL_DATA = [
-  {
-    id: 1,
-    title: 'Title',
-    text: 'Text',
-    date: new Date(),
-  },
-  {
-    id: 2,
-    title: 'Title1',
-    text: 'Text1',
-    date: new Date(),
-  },
-  {
-    id: 3,
-    title: 'Title2',
-    text: 'Text2',
-    date: new Date(),
-  },
-];
+import Storage from './helpers/storage';
 
 const sortItems = getSortItemsByDate();
 
 function App() {
-  const [memories, setMemories] = useState(INITIAL_DATA.sort(sortItems));
+  const [memories, setMemories] = useState(() => Storage.get().sort(sortItems));
+
+  useEffect(() => {
+    Storage.set(memories);
+  }, [memories]);
 
   const addItem = (item) => {
-    setMemories((prev) => [
-      ...prev,
-      {
-        ...item,
-        id: Math.max(0, ...prev.map(({ id }) => id)) + 1,
-        date: new Date(item.date),
-      },
-    ].sort(sortItems));
+    setMemories((prev) => [...prev, {
+      ...item,
+      id: Math.max(0, ...prev.map(({ id }) => id)) + 1,
+      date: item.date,
+    }]
+      .sort(sortItems));
+  };
+
+  const removeItem = (itemId) => {
+    setMemories((prev) => prev.filter(({ id }) => id !== itemId));
   };
 
   return (
@@ -54,7 +40,7 @@ function App() {
       </LeftPanel>
 
       <Body>
-        <JournalForm onAddItem={addItem} />
+        <JournalForm onAddItem={addItem} onRemoveItem={removeItem} />
       </Body>
     </div>
   );
