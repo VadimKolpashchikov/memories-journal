@@ -40,7 +40,7 @@ function App() {
       </LeftPanel>
 
       <Body>
-        <JournalForm onAddItem={addItem} onRemoveItem={removeItem} />
+        <JournalForm onSubmit={addItem} onRemoveItem={removeItem} />
       </Body>
     </div>
   );

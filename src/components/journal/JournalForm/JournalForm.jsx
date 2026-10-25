@@ -1,44 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import Button from '../../Button/Button';
 import JournalFormField from '../JournalFormField/JournalFormField';
 import DeleteSvg from '@/assets/svg/delete.svg?react';
 import CalendarSvg from '@/assets/svg/calendar.svg?react';
 import FileSvg from '@/assets/svg/file.svg?react';
 import styles from './JournalForm.module.scss';
+import { formReducer, formReducerActions, INITIAL_STATE } from './JournalForm.state';
 
-function JournalForm({ onAddItem }) {
-  const [formValidState, setFormValidState] = useState({
-    title: true,
-    date: true,
-    text: true,
-  });
+function JournalForm({ onSubmit }) {
+  const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
+  const {
+    validState, formData, isReadyToSubmit,
+  } = formState;
 
-  const validate = (formData) => {
-    const state = { ...formValidState };
-
-    state.title = !!formData.title.trim();
-    state.text = !!formData.text.trim();
-    state.date = !!formData.date;
-    setFormValidState(state);
-
-    return Object.values(state).every((val) => val);
-  };
-
-  const addJournalItem = (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target));
-    const isValid = validate(data);
-
-    if (isValid) {
-      onAddItem(data);
-      e.target.reset();
+  useEffect(() => {
+    let timerId;
+    if (Object.values(validState).some((state) => !state)) {
+      timerId = setTimeout(() => {
+        dispatchForm({ type: formReducerActions.RESET_VALIDITY });
+      }, 2000);
     }
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [validState]);
+
+  useEffect(() => {
+    if (isReadyToSubmit) {
+      onSubmit(formData);
+    }
+  }, [isReadyToSubmit, onSubmit, formData]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    dispatchForm({
+      type: formReducerActions.SUBMIT,
+      payload: Object.fromEntries(new FormData(e.target)),
+    });
   };
 
   return (
-    <form className={styles['journal-form']} onSubmit={addJournalItem}>
+    <form className={styles['journal-form']} onSubmit={submitHandler}>
       <div className={styles['journal-form__head']}>
-        <JournalFormField invalid={!formValidState['title']} wide={true}>
+        <JournalFormField invalid={!validState['title']} wide={true}>
           <input
             name="title"
             type="text"
@@ -53,7 +59,7 @@ function JournalForm({ onAddItem }) {
 
       <div className={styles['journal-form__fields-box']}>
         <JournalFormField
-          invalid={!formValidState['date']}
+          invalid={!validState['date']}
           icon={<CalendarSvg />}
           label="Дата"
         >
@@ -65,7 +71,7 @@ function JournalForm({ onAddItem }) {
         </JournalFormField>
       </div>
 
-      <JournalFormField invalid={!formValidState['text']} grow={true}>
+      <JournalFormField invalid={!validState['text']} grow={true}>
         <textarea name="text" placeholder="Моё воспоминание..." />
       </JournalFormField>
 
