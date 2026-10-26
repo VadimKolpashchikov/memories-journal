@@ -7,13 +7,13 @@ export const INITIAL_STATE = {
   formData: {
     title: '',
     text: '',
-    date: null,
+    date: '',
     tag: '',
   },
   isReadyToSubmit: false,
 };
 
-export const formReducerActions = {
+export const actionTypes = {
   RESET_VALIDITY: 'RESET_VALIDITY',
   UPDATE_FORM_DATA: 'UPDATE_FORM_DATA',
   SUBMIT: 'SUBMIT',
@@ -21,14 +21,29 @@ export const formReducerActions = {
 
 export const formReducer = (state, action) => {
   switch (action.type) {
-    case formReducerActions.RESET_VALIDITY:
+    case actionTypes.RESET_VALIDITY:
       return {
         ...state,
         validState: { ...INITIAL_STATE.validState },
         isReadyToSubmit: false,
       };
 
-    case formReducerActions.SUBMIT: {
+    case actionTypes.UPDATE_FORM_DATA: {
+      const {
+        name, value,
+      } = action.payload;
+
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          [name]: value,
+        },
+        isReadyToSubmit: false,
+      };
+    }
+
+    case actionTypes.SUBMIT: {
       const formData = { ...action.payload };
       formData.title = action.payload.title.trim();
       formData.text = action.payload.text.trim();

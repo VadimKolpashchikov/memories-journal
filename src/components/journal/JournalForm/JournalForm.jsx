@@ -5,7 +5,7 @@ import DeleteSvg from '@/assets/svg/delete.svg?react';
 import CalendarSvg from '@/assets/svg/calendar.svg?react';
 import FileSvg from '@/assets/svg/file.svg?react';
 import styles from './JournalForm.module.scss';
-import { formReducer, formReducerActions, INITIAL_STATE } from './JournalForm.state';
+import { formReducer, actionTypes, INITIAL_STATE } from './JournalForm.state';
 
 function JournalForm({ onSubmit }) {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
@@ -17,7 +17,7 @@ function JournalForm({ onSubmit }) {
     let timerId;
     if (Object.values(validState).some((state) => !state)) {
       timerId = setTimeout(() => {
-        dispatchForm({ type: formReducerActions.RESET_VALIDITY });
+        dispatchForm({ type: actionTypes.RESET_VALIDITY });
       }, 2000);
     }
 
@@ -36,8 +36,18 @@ function JournalForm({ onSubmit }) {
     e.preventDefault();
 
     dispatchForm({
-      type: formReducerActions.SUBMIT,
+      type: actionTypes.SUBMIT,
       payload: Object.fromEntries(new FormData(e.target)),
+    });
+  };
+
+  const onControlChange = (event) => {
+    dispatchForm({
+      type: actionTypes.UPDATE_FORM_DATA,
+      payload: {
+        name: event.target.name,
+        value: event.target.value,
+      },
     });
   };
 
@@ -48,7 +58,9 @@ function JournalForm({ onSubmit }) {
           <input
             name="title"
             type="text"
+            value={formData.title}
             placeholder="Заголовок"
+            onChange={onControlChange}
           />
         </JournalFormField>
 
@@ -63,16 +75,31 @@ function JournalForm({ onSubmit }) {
           icon={<CalendarSvg />}
           label="Дата"
         >
-          <input name="date" type="date" />
+          <input
+            name="date"
+            type="date"
+            value={formData.date}
+            onChange={onControlChange}
+          />
         </JournalFormField>
 
         <JournalFormField icon={<FileSvg />} label="Метки">
-          <input name="tag" type="text" />
+          <input
+            name="tag"
+            type="text"
+            value={formData.tag}
+            onChange={onControlChange}
+          />
         </JournalFormField>
       </div>
 
       <JournalFormField invalid={!validState['text']} grow={true}>
-        <textarea name="text" placeholder="Моё воспоминание..." />
+        <textarea
+          name="text"
+          placeholder="Моё воспоминание..."
+          value={formData.text}
+          onChange={onControlChange}
+        />
       </JournalFormField>
 
       <Button type="submit">Сохранить</Button>
