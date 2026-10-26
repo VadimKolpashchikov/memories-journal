@@ -37,7 +37,8 @@
       border-color: $light-color-60;
     }
 
-    &_invalid {
+    &_invalid,
+    &_invalid:hover {
       border-color: $error-color-400;
     }
   }
