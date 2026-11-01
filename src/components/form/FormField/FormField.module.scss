@@ -1,4 +1,4 @@
-.journal-form-field {
+.form-field {
   position: relative;
   width: 100%;
   cursor: text;
@@ -6,7 +6,7 @@
   &_grow {
     flex-grow: 1;
 
-    .journal-form-field__wrap {
+    .form-field__wrap {
       height: 100%;
     }
   }
@@ -38,7 +38,8 @@
     }
 
     &_invalid,
-    &_invalid:hover {
+    &_invalid:hover,
+    &_invalid:focus-within {
       border-color: $error-color-400;
     }
   }

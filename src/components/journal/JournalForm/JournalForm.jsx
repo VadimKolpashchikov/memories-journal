@@ -1,21 +1,43 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import Button from '../../Button/Button';
-import JournalFormField from '../JournalFormField/JournalFormField';
 import DeleteSvg from '@/assets/svg/delete.svg?react';
 import CalendarSvg from '@/assets/svg/calendar.svg?react';
 import FileSvg from '@/assets/svg/file.svg?react';
 import styles from './JournalForm.module.scss';
 import { formReducer, actionTypes, INITIAL_STATE } from './JournalForm.state';
+import Input from '../../form/Input/Input';
+import TextArea from '../../form/TextArea/TextArea';
 
 function JournalForm({ onSubmit }) {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   const {
     validState, formData, isReadyToSubmit,
   } = formState;
+  const titleRef = useRef();
+  const dateRef = useRef();
+  const textRef = useRef();
+
+  const focusFirstInvalidField = (validState) => {
+    switch (true) {
+      case !validState.title:
+        titleRef.current.focus();
+        break;
+      case !validState.date:
+        dateRef.current.focus();
+        break;
+      case !validState.text:
+        textRef.current.focus();
+        break;
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
     let timerId;
     if (Object.values(validState).some((state) => !state)) {
+      focusFirstInvalidField(validState);
+
       timerId = setTimeout(() => {
         dispatchForm({ type: actionTypes.RESET_VALIDITY });
       }, 2000);
@@ -51,53 +73,53 @@ function JournalForm({ onSubmit }) {
   return (
     <form className={styles['journal-form']} onSubmit={submitHandler}>
       <div className={styles['journal-form__head']}>
-        <JournalFormField invalid={!validState['title']} wide={true}>
-          <input
-            name="title"
-            type="text"
-            value={formData.title}
-            placeholder="Заголовок"
-            onChange={onControlChange}
-          />
-        </JournalFormField>
+        <Input
+          name="title"
+          type="text"
+          ref={titleRef}
+          value={formData.title}
+          placeholder="Заголовок"
+          invalid={!validState['title']}
+          appearance="title"
+          onChange={onControlChange}
+        />
 
-        <button type="button">
+        <button type="button" className={styles['journal-form__delete-button']}>
           <DeleteSvg />
         </button>
       </div>
 
       <div className={styles['journal-form__fields-box']}>
-        <JournalFormField
+        <Input
           invalid={!validState['date']}
           icon={<CalendarSvg />}
           label="Дата"
-        >
-          <input
-            name="date"
-            type="date"
-            value={formData.date}
-            onChange={onControlChange}
-          />
-        </JournalFormField>
-
-        <JournalFormField icon={<FileSvg />} label="Метки">
-          <input
-            name="tag"
-            type="text"
-            value={formData.tag}
-            onChange={onControlChange}
-          />
-        </JournalFormField>
-      </div>
-
-      <JournalFormField invalid={!validState['text']} grow={true}>
-        <textarea
-          name="text"
-          placeholder="Моё воспоминание..."
-          value={formData.text}
+          name="date"
+          type="date"
+          ref={dateRef}
+          value={formData.date}
           onChange={onControlChange}
         />
-      </JournalFormField>
+
+        <Input
+          icon={<FileSvg />}
+          label="Метки"
+          name="tag"
+          type="text"
+          value={formData.tag}
+          onChange={onControlChange}
+        />
+      </div>
+
+      <TextArea
+        invalid={!validState['text']}
+        grow={true}
+        name="text"
+        placeholder="Моё воспоминание..."
+        ref={textRef}
+        value={formData.text}
+        onChange={onControlChange}
+      />
 
       <Button type="submit">Сохранить</Button>
     </form>

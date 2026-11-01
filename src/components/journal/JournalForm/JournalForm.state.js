@@ -36,6 +36,10 @@ export const formReducer = (state, action) => {
 
       return {
         ...state,
+        validState: {
+          ...state.validState,
+          [name]: true,
+        },
         formData: {
           ...state.formData,
           [name]: value,
