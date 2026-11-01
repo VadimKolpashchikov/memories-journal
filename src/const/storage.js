@@ -1,1 +1,1 @@
-export const STORAGE_KEY = 'memories-journal-data';
+export const MEMORIES_KEY = 'memories-journal-data';

@@ -5,18 +5,14 @@ import LeftPanel from './components//layouts/LeftPanel/LeftPanel';
 import Header from './components/Header/Header';
 import JournalForm from './components/journal/JournalForm/JournalForm';
 import './styles/App.scss';
-import { useEffect, useState } from 'react';
 import { getSortItemsByDate } from './helpers/date';
-import Storage from './helpers/storage';
+import { useStorage } from './hooks/useStorage.hook';
+import { MEMORIES_KEY } from './const/storage';
 
 const sortItems = getSortItemsByDate();
 
 function App() {
-  const [memories, setMemories] = useState(() => Storage.get().sort(sortItems));
-
-  useEffect(() => {
-    Storage.set(memories);
-  }, [memories]);
+  const [memories, setMemories] = useStorage(MEMORIES_KEY);
 
   const addItem = (item) => {
     setMemories((prev) => [...prev, {
