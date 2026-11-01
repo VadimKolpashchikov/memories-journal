@@ -17,6 +17,7 @@ export const actionTypes = {
   RESET_VALIDITY: 'RESET_VALIDITY',
   UPDATE_FORM_DATA: 'UPDATE_FORM_DATA',
   SUBMIT: 'SUBMIT',
+  RESET_FORM_DATA: 'RESET_FORM_DATA',
 };
 
 export const formReducer = (state, action) => {
@@ -43,10 +44,19 @@ export const formReducer = (state, action) => {
       };
     }
 
+    case actionTypes.RESET_FORM_DATA: {
+      return {
+        ...state,
+        formData: { ...INITIAL_STATE.formData },
+        validState: { ...INITIAL_STATE.validState },
+        isReadyToSubmit: INITIAL_STATE.isReadyToSubmit,
+      };
+    }
+
     case actionTypes.SUBMIT: {
-      const formData = { ...action.payload };
-      formData.title = action.payload.title.trim();
-      formData.text = action.payload.text.trim();
+      const { formData } = state;
+      formData.title = formData.title.trim();
+      formData.text = formData.text.trim();
 
       const validState = Object.fromEntries(
         Object.keys(INITIAL_STATE.validState)

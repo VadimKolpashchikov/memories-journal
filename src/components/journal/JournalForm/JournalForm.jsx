@@ -29,16 +29,13 @@ function JournalForm({ onSubmit }) {
   useEffect(() => {
     if (isReadyToSubmit) {
       onSubmit(formData);
+      dispatchForm({ type: actionTypes.RESET_FORM_DATA });
     }
   }, [isReadyToSubmit, onSubmit, formData]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    dispatchForm({
-      type: actionTypes.SUBMIT,
-      payload: Object.fromEntries(new FormData(e.target)),
-    });
+    dispatchForm({ type: actionTypes.SUBMIT });
   };
 
   const onControlChange = (event) => {
