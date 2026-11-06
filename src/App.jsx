@@ -18,7 +18,6 @@ function App() {
     setMemories((prev) => [...prev, {
       ...item,
       id: Math.max(0, ...prev.map(({ id }) => id)) + 1,
-      date: item.date,
     }]
       .sort(sortItems));
   };
