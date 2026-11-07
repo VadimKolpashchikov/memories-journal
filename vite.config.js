@@ -22,5 +22,9 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react(), svgr(), babel({ presets: [reactCompilerPreset()] })],
+  plugins: [
+    babel({ presets: [reactCompilerPreset()] }),
+    react(),
+    svgr(),
+  ],
 });
